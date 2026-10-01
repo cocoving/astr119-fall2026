@@ -1,27 +1,14 @@
-while True:
-    try:
-        input_a = input("Enter the value of a: ")
-        a = float(input_a)
-        break
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
+def get_float_input(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
-while True:
-    try:
-        input_b = input("Enter the value of b: ")
-        b = float(input_b)
-        break
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-
-while True:
-    try:
-        input_c = input("Enter the value of c: ")
-        c = float(input_c)
-        break
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-
+a = get_float_input("Enter the value of a: ")
+b = get_float_input("Enter the value of b: ")
+c = get_float_input("Enter the value of c: ")
 
 def Quadratic(a, b, c):
     if a == 0:

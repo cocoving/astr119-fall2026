@@ -1,5 +1,5 @@
 import numpy as np
-
+    
 #Code takes the radius of a comet and calculates the rate at which it will shrink and how many orbits it will last before it is gone.
 
 pi = np.pi

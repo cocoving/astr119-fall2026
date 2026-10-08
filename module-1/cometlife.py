@@ -26,3 +26,5 @@ def dr_per_orbit(R, A, Rho, a, e):
     delta_r = (delta_M)/(4*pi*Rho*R**2)
     return delta_r
 print(f"The comet will shrink {dr_per_orbit(2000, 0, 500, 3.12, 0.5):.2f} meters every orbit.")
+print("hi")
+

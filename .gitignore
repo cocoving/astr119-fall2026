@@ -11,6 +11,8 @@ Thumbs.db
 .claude/settings.local.json
 .vscode/*
 !.vscode/extensions.json
+CLAUDE.local.md
+scratch/
 
 # Large files you should not commit
 *.fits

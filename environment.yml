@@ -23,6 +23,7 @@ dependencies:
   - jupyterlab
   - ipython
   - pip
+  - gh
   # SLM unit (uncomment once D3 is decided; CPU-only torch is enough)
   # - pytorch-cpu
   # - pip:

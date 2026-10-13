@@ -1,6 +1,6 @@
 # Module 1: setup and first scripts (Sep 24 to Oct 8)
 
-**AI-free.** Nothing in this folder is written with an AI tool, and the agent will decline to touch it.
+**AI-free, except `cometlife.py` from Pod 1 on.** `poke.py`, `poke_starter.py` and the practice files are written without an AI tool, and the agent will decline to touch them. `cometlife.py` is the program the agent first works on, in Pod 1 (Thu Oct 8).
 
 What goes here:
 

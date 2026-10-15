@@ -31,10 +31,25 @@ def legpoly(n,x):
     ### THIS IS WHERE YOU COME IN
     ### USE AS MANY LINES AS YOU NEED
     ### USE A FOR LOOP OR WHILE LOOP, WHICHEVER YOU LIKE
-    y = None
+    if n == 0:
+        y = 1.0
+    elif n == 1:
+        y = x
+    else:
+        P_0 = 1
+        P_1 = x
+        for i in range(2, n+1):
+            P_i = P_0
+            P_j = P_1
+            P_n = (1/(i))*((2*(i-1)+1)*x*P_j - (i-1)*P_i)
+            P_i, P_j = P_j, P_n
+
+        y = P_n
     ###
 
     return y
+#prediction for legpoly(2, 0.5)
+#2.270896037
 
 ### For testing during development
 def _test1():

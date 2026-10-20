@@ -29,6 +29,7 @@ def multitab(n):
         length = 2
     elif n*n <  1000:
         length = 3
+    
 
     top = f"{n:{length}.0f}| "
     for i in range(1, n+1):

@@ -7,8 +7,8 @@ sb = 5.67*10**-8
 pi = math.pi
 
 
-def t_eq(L,D):
-    T_eq = (L/((D**2)*16*pi*sb))**(1/4)
+def t_eq(L, D, A=0):
+    T_eq = (L*(1-A)/((D**2)*16*pi*sb))**(1/4)
     
     return (T_eq)
 

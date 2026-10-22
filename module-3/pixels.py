@@ -2,12 +2,29 @@
 # Run from the repository folder:  python module-3/pixels.py
 import numpy as np
 from matplotlib.pyplot import imread, imsave
+import numpy as np
 
 I = imread("module-3/clean_io_small.png")
      # rows, columns, 3 colour channels; values 0.0 to 1.0
 J = I.copy()
+x = (5+356)
+y = (5+349)
+
 J[20:40, 20:40, :] = 1
 J[356, :, :] = 0
+def circle(r, pos_x, pos_y):
+    for x in range(0, r+1):
+        for y in range(0, r+1):
+            if (x-pos_x)**2+(y-pos_y)**2<r**2:
+                J[int(np.sqrt((x-pos_x)**2+(y-pos_y)**2)), int(np.sqrt((x-pos_x)**2+(y-pos_y)**2)), :] = 1
+circle(50, 356, 400)
+circle(50, 356, 300)
+
+
+
+    
+
+
 imsave("module-3/pixels_out.png", J)
 if __name__ == "__main__":
     print("shape:", I.shape)

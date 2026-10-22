@@ -8,6 +8,7 @@ What goes here:
   python pixelfixer.py easy_corrupt_io_small.png
   ```
 
+- `pixels.py` and the picture it saves (`pixels_out.png` or your own name): your own copy of `pixels_starter.py` (the clean test image as an array). Everyone keeps their own file.
 - `planets_arrays.py`: your own copy of `planets_arrays_starter.py` (the ten planets from `exotemp.py` as numpy arrays). Everyone keeps their own file.
 - `ai-use-note.md` and your exported transcript for HW3.
 

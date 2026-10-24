@@ -10,16 +10,14 @@ J = I.copy()
 x = (5+356)
 y = (5+349)
 
-J[20:40, 20:40, :] = 1
-J[356, :, :] = 0
-def circle(r, pos_x, pos_y):
-    for x in range(0, r+1):
-        for y in range(0, r+1):
-            if (x-pos_x)**2+(y-pos_y)**2<r**2:
-                J[int(np.sqrt((x-pos_x)**2+(y-pos_y)**2)), int(np.sqrt((x-pos_x)**2+(y-pos_y)**2)), :] = 1
-circle(50, 356, 400)
-circle(50, 356, 300)
 
+def circle(r, pos_x, pos_y):
+    for x in range(pos_x-r, pos_x+r+1):
+        for y in range(pos_y-r, pos_y+r+1):
+            if (x-pos_x)**2+(y-pos_y)**2<r**2:
+                J[x, y, :] = 0
+circle(50, 356, 450)
+circle(50, 356, 250)
 
 
     
@@ -31,3 +29,5 @@ if __name__ == "__main__":
     print("size", I.size)
     print(I[0, 0])
     print(I[356,349])
+
+J = 1 - J

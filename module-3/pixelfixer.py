@@ -29,27 +29,34 @@ def pixelfix(I):
         A copy of the image with the bad pixels fixed.
     """
     Iq = I.copy()
-
-    ### YOUR WORK GOES HERE (with the agent, under the Protocol, in stages:
-    ### 1. find the bad pixels and print how many;
-    ### 2. paint them white and look at the result;
-    ### 3. replace the white with the average of the up/down/left/right
-    ###    neighbors. Then try solo_corrupt_io_small.png.)
-    for i in range(0, I.shape[1]):
-        for j in range(0, I.shape[2]):
-            if Iq[i, j, 0] == 1:
+    k = 0
+    for i in range(0, I.shape[0]):
+        for j in range(0, I.shape[1]):
+            if Iq[i, j, 0] == 1 and Iq[i, j, 1] == 0 and Iq[i, j, 2] == 0:
                 Iq[i, j] = 1
-
-
+                k += 1
+                count, total = 0, 0
+                if i - 1 >= 0:
+                    count += 1; total += Iq[i-1, j]
+                if i + 1 < Iq.shape[0]:
+                    count += 1; total += Iq[i+1, j]
+                if j - 1 >= 0:
+                    count += 1; total += Iq[i, j-1]
+                if j + 1 < Iq.shape[1]:
+                    count += 1; total += Iq[i, j+1]
+                Iq[i,j]=((total)/(count))           
+    print(k)
     return Iq
-
 
 def _main():
     try:
         image_file = sys.argv[1]
     except IndexError:
-        
-        
+        for i, name in enumerate(pics):
+            print(i, name.name)
+        choice = input("Enter a number: ")
+        image_file = pics[int(choice)].name
+
     I = imread(image_file)
     I = pixelfix(I)
     imsave('fixed_' + image_file, I)

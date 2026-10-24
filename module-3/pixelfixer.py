@@ -36,13 +36,13 @@ def pixelfix(I):
                 Iq[i, j] = 1
                 k += 1
                 count, total = 0, 0
-                if i - 1 >= 0:
+                if i - 1 >= 0 and Iq[i-1, j, 0] < 1:
                     count += 1; total += Iq[i-1, j]
-                if i + 1 < Iq.shape[0]:
+                if i + 1 < Iq.shape[0] and Iq[i+1, j, 0] < 1:
                     count += 1; total += Iq[i+1, j]
-                if j - 1 >= 0:
+                if j - 1 >= 0 and Iq[i, j-1, 0] < 1:
                     count += 1; total += Iq[i, j-1]
-                if j + 1 < Iq.shape[1]:
+                if j + 1 < Iq.shape[1] and Iq[i, j+1, 0] < 1:
                     count += 1; total += Iq[i, j+1]
                 Iq[i,j]=((total)/(count))           
     print(k)

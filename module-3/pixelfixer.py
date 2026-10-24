@@ -9,7 +9,10 @@
 import sys
 import numpy as np
 from matplotlib.pyplot import imread, imsave
+from pathlib import Path
 
+folder = Path(__file__).parent
+pics = sorted(folder.glob("*.png"))
 
 def pixelfix(I):
     """Replace bad pixels with the color averaged from their neighbors.
@@ -32,12 +35,21 @@ def pixelfix(I):
     ### 2. paint them white and look at the result;
     ### 3. replace the white with the average of the up/down/left/right
     ###    neighbors. Then try solo_corrupt_io_small.png.)
+    for i in range(0, I.shape[1]):
+        for j in range(0, I.shape[2]):
+            if Iq[i, j, 0] == 1:
+                Iq[i, j] = 1
+
 
     return Iq
 
 
 def _main():
-    image_file = sys.argv[1]
+    try:
+        image_file = sys.argv[1]
+    except IndexError:
+        
+        
     I = imread(image_file)
     I = pixelfix(I)
     imsave('fixed_' + image_file, I)

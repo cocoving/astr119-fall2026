@@ -4,7 +4,7 @@ import numpy as np
 from matplotlib.pyplot import imread, imsave
 import numpy as np
 
-I = imread("module-3/clean_io_small.png")
+I = imread("clean_io_small.png")
      # rows, columns, 3 colour channels; values 0.0 to 1.0
 J = I.copy()
 x = (5+356)
@@ -23,10 +23,11 @@ circle(50, 356, 250)
     
 
 
-imsave("module-3/pixels_out.png", J)
+imsave("pixels_out.png", J)
 if __name__ == "__main__":
-    print("shape:", I.shape)
+    print("shape:", I.shape[1])
     print("size", I.size)
+    print(I[356, 349, 0])
     print(I[0, 0])
     print(I[356,349])
 

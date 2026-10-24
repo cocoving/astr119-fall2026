@@ -45,7 +45,7 @@ def pixelfix(I):
                 if j + 1 < Iq.shape[1] and Iq[i, j+1, 0] < 1:
                     count += 1; total += Iq[i, j+1]
                 Iq[i,j]=((total)/(count))           
-    print(k)
+    print(f"{k} Bad Pixels Found")
     return Iq
 
 def _main():

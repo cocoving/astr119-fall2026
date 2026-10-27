@@ -3,7 +3,7 @@
 import numpy as np
 from matplotlib.pyplot import imread, imsave
 
-I = imread("module-3/clean_io_small.png")     # rows, columns, 3 colour channels; values 0.0 to 1.0
+I = imread("module-3/clean_io_small.png")     # rows, columns, 3 color channels; values 0.0 to 1.0
 
 if __name__ == "__main__":
     print("shape:", I.shape)

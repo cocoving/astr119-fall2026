@@ -9,7 +9,7 @@ This is your working folder for ASTR-119, Introduction to Scientific Computing, 
 | `module-1/` | Setup and first scripts (Sep 24 to Oct 8). Your comet script, `quadratic.py`, HW1. HW1 is **AI-free.** |
 | `module-2/` | Loops, lists, functions. Added the week of Oct 12. |
 | `module-3/` | numpy arrays and tables. Added the week of Oct 26. |
-| `module-4/` | Plotting and fitting. Added the week of Nov 9. |
+| `module-4/` | Plotting and fitting. Added the week of Oct 26; the galaxy notebook and its catalog arrive later. |
 | `module-5/` | How a language model works. Added the week of Nov 23. |
 | `project/` | Your final project. Added when proposals open, the week of Nov 2. |
 | `data/` | Shared data sets, if any are needed. |

@@ -31,4 +31,3 @@ if __name__ == "__main__":
     print(I[0, 0])
     print(I[356,349])
 
-J = 1 - J

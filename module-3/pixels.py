@@ -2,32 +2,41 @@
 # Run from the repository folder:  python module-3/pixels.py
 import numpy as np
 from matplotlib.pyplot import imread, imsave
-import numpy as np
+import sys
+from pathlib import Path
 
-I = imread("clean_io_small.png")
-     # rows, columns, 3 colour channels; values 0.0 to 1.0
-J = I.copy()
-x = (5+356)
-y = (5+349)
-
-
-def circle(r, pos_x, pos_y):
+def circle(r, pos_x, pos_y, I):
     for x in range(pos_x-r, pos_x+r+1):
         for y in range(pos_y-r, pos_y+r+1):
             if (x-pos_x)**2+(y-pos_y)**2<r**2:
-                J[x, y, :] = 0
-circle(50, 356, 450)
-circle(50, 356, 250)
+                I[x, y, :] = 0
+
+def eyes(I):
+    J = I
+    circle(50, 356, 450, I)
+    circle(50, 356, 250, I)
 
 
     
 
 
-imsave("pixels_out.png", J)
-if __name__ == "__main__":
-    print("shape:", I.shape[1])
-    print("size", I.size)
-    print(I[356, 349, 0])
-    print(I[0, 0])
-    print(I[356,349])
 
+folder = Path(__file__).parent
+pics = sorted(folder.glob("*.png"))
+def _main():
+    try:
+        image_file = sys.argv[1]
+    except IndexError:
+        for i, name in enumerate(pics):
+            print(i, name.name)
+        choice = input("Enter a number: ")
+        image_file = pics[int(choice)].name
+
+    I = imread(image_file)
+    I = eyes(I)
+    imsave("pixels_out.png", I)
+    print(f"Wrote fixed_{image_file}")
+
+
+if __name__ == '__main__':
+    _main()

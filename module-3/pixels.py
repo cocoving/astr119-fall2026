@@ -12,13 +12,9 @@ def circle(r, pos_x, pos_y, I):
                 I[x, y, :] = 0
 
 def eyes(I):
-    J = I
     circle(50, 356, 450, I)
     circle(50, 356, 250, I)
-
-
-    
-
+    return I
 
 
 folder = Path(__file__).parent

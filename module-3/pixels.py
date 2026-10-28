@@ -72,6 +72,33 @@ def edges_grad(I):
     
     return L
 
+def edges_grad_vII(I):
+    try:
+        I = b_w(I)
+    except:IndexError
+    J = np.zeros_like(I)
+    K = I.copy()
+    L = np.zeros_like(I)
+    I[1:, :] += K[:-1, :]
+    I[:-1, :] += K[1:, :]
+    I[:, 1:] += K[:, :-1]
+    I[:, :-1] += K[:, 1:]
+    L[:, :] = (I[:, :]-(5*K[:, :]))
+    v = 1*np.std(L)
+    sigma = 5*np.std(L)
+    total = np.zeros_like(L); count = np.zeros_like(L)
+    mask = ((abs(L[1:, :] - L[:-1, :]) > v)) & (L[1:, :]*L[:-1, :] < 0)
+    total[1:, :] += abs(L[1:, :] - L[:-1, :])*mask; count[1:, :] += mask
+    mask = ((abs(L[:-1, :] - L[1:, :]) > v)) & (L[:-1, :]*L[1:, :] < 0)
+    total[:-1, :] += abs(L[:-1, :] - L[1:, :])*mask; count[:-1, :] += mask
+    mask = ((abs(L[:, 1:] - L[:, :-1]) > v)) & (L[:, 1:]*L[:, :-1] < 0)
+    total[:, 1:] += abs(L[:, 1:] - L[:, :-1])*mask; count[:, 1:] += mask
+    mask = ((abs(L[:, :-1] - L[:, 1:]) > v)) & (L[:, :-1]*L[:, 1:] < 0)
+    total[:, :-1] += abs(L[:, :-1] - L[:, 1:])*mask; count[:, :-1] += mask
+    x = np.where(count > 0,total/np.maximum(count, 1),0) 
+    L[:, :] = 1-np.exp((-(x)**2)/(2*(sigma)**2))
+    return L
+
 def b_w(I):
     I = (I[:, :, 0]*(0.299) + I[:, :, 1]*(0.587) + I[:, :, 2]*(0.114))
     return I
@@ -96,7 +123,7 @@ def blur(I):
 
 folder = Path(__file__).parent
 pics = sorted(folder.glob("*.png"))
-edits = {"eyes": eyes, "nothing": null, "inverted": inverted, "blur": blur, "edges":edges, "edges2": edges_grad, "Black & White":b_w}
+edits = {"eyes": eyes, "nothing": null, "inverted": inverted, "blur": blur, "edges":edges, "edges2": edges_grad, "Black & White":b_w, "Edges V-II":edges_grad_vII}
 names = list(edits)
 
 def _main():

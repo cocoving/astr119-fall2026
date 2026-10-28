@@ -121,9 +121,16 @@ def blur(I):
         I /= 5
     return I
 
+def color_swap(I):
+    J = I.copy()
+    I[:, :, 0] = J[:, :, 2]
+    I[:, :, 1] = J[:, :, 0]
+    I[:, :, 2] = J[:, :, 1]
+    return I
+
 folder = Path(__file__).parent
 pics = sorted(folder.glob("*.png"))
-edits = {"eyes": eyes, "nothing": null, "inverted": inverted, "blur": blur, "edges":edges, "edges2": edges_grad, "Black & White":b_w, "Edges V-II":edges_grad_vII}
+edits = {"eyes": eyes, "nothing": null, "inverted": inverted, "blur": blur, "edges":edges, "edges2": edges_grad, "Black & White":b_w, "Edges V-II":edges_grad_vII, "Color":color_swap}
 names = list(edits)
 
 def _main():

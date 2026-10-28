@@ -1,5 +1,5 @@
 import numpy as np
-from matplotlib.pyplot import imread, imsave
+from matplotlib.pyplot import imread, imsave, imshow
 import sys
 from pathlib import Path
 
@@ -39,24 +39,38 @@ def edges(I):
     return J
 
 def edges_grad(I):
-    v = .9
-    J = np.ones_like(I)
+    try:
+        I = b_w(I)
+    except:IndexError
+    J = np.zeros_like(I)
     K = I.copy()
+    L = np.zeros_like(I)
+    I[1:, :] += K[:-1, :]
+    I[:-1, :] += K[1:, :]
+    I[:, 1:] += K[:, :-1]
+    I[:, :-1] += K[:, 1:]
+    L[:, :] = (I[:, :]-(5*K[:, :]))
+    v = 1*np.std(L)
+    sigma = 5*np.std(L)
     for i in range(1, I.shape[0]-1):
         for j in range(1, I.shape[1]-1):
             total = 0
-            if any(I[i, j, :] - K[i-1, j, :]) > v:               
-                total += abs(any(I[i, j, :] - K[i-1, j, :]))
-            if any(I[i, j, :] - K[i+1, j, :]) > v:
-                total += abs(any(I[i, j, :] - K[i-1, j, :]))
-            if any(I[i, j, :] - K[i, j-1, :]) > v:
-                total += abs(any(I[i, j, :] - K[i-1, j, :]))
-            if any(I[i, j, :] - K[i, j+1, :]) > v:
-                total += abs(any(I[i, j, :] - K[i-1, j, :]))
-            total /= 4
-            J[i, j] = total
-    J /= J.max()
-    return J
+            count = 0
+            if abs(L[i, j] - L[i-1, j]) > v and L[i, j]*L[i-1, j] < 0:               
+                total += abs(L[i, j] - L[i-1, j]); count += 1
+            if abs(L[i, j] - L[i+1, j]) > v and L[i, j]*L[i+1, j] < 0:
+                total += abs(L[i, j] - L[i+1, j]); count += 1
+            if abs(L[i, j] - L[i, j-1]) > v and L[i, j]*L[i, j-1] < 0:
+                total += abs(L[i, j] - L[i, j-1]); count += 1
+            if abs(L[i, j] - L[i, j+1]) > v and L[i, j]*L[i, j+1] < 0:
+                total += abs(L[i, j] - L[i, j+1]); count += 1
+            if count > 0:
+                x = total = total/count 
+                L[i, j] = 1-np.exp((-(x)**2)/(2*(sigma)**2))
+            else:
+                L[i, j] = 0
+    
+    return L
 
 def b_w(I):
     I = (I[:, :, 0]*(0.299) + I[:, :, 1]*(0.587) + I[:, :, 2]*(0.114))
@@ -113,7 +127,7 @@ def _main():
                 choice -= 1
                 edit = edits[names[choice]]
                 I = edit(I)
-                    
+                imshow(I)
                 imsave("pixels_out.png", I, cmap="grey")
                 print(f"Wrote {image_file}")
 

@@ -56,8 +56,8 @@ def scatter():
     d = np.linspace(0.01, 2.0, 200)
     T_curve = t_eq(L_SUN, d * AU)
     fig, ax = plt.subplots()
-    ax.set_ylabel("Equilibrium Temperature (K)")
-    ax.set_xlabel("Distance (AU)")
+    ax.set_ylabel("Eq Temp(K)")
+    ax.set_xlabel("D(AU)")
     ax.set_xscale("log")
     ax.set_yscale("log")
     ax.scatter(dist, T)
@@ -80,7 +80,7 @@ def _main():
                 break
             else:
                 choice -= 1
-                grapgh = graphs[names[choice+1]]
+                graph = graphs[names[choice]]
                 fig = graph()
                 fig.savefig("module-4/planets.png", dpi=150)
                 print("wrote module-4/planets.png")

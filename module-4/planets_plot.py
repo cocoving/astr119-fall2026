@@ -74,6 +74,7 @@ def _main():
     except IndexError:
         while True:
             for i, name in enumerate(graphs.items()):
+                print("Exit 0")
                 print(i+1, name)
             choice = get_int_input("Enter a number: ")
             if choice == 0:

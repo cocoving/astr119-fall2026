@@ -50,18 +50,22 @@ def three_d_graph():
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
     plt.show()
+    return fig
 
 def scatter():
     T = t_eq(lum * L_SUN, dist * AU)
     d = np.linspace(0.01, 2.0, 200)
-    T_curve = t_eq(L_SUN, d * AU)
+    T_curveI = t_eq(L_SUN, d * AU)
+    T_curveII = t_eq(L_SUN, d * (AU*(1/2)))
     fig, ax = plt.subplots()
     ax.set_ylabel("Eq Temp(K)")
     ax.set_xlabel("D(AU)")
-    ax.set_xscale("log")
+    #ax.set_xscale("log")
     ax.set_yscale("log")
     ax.scatter(dist, T)
-    ax.plot(d, T_curve)
+    ax.plot(d, T_curveI, label="1 AU")
+    ax.plot(d, T_curveII, label="0.5 AU")
+    plt.legend(loc="upper right")
     for n, x, y in zip(name, dist, T): ax.annotate(n, (x, y), fontsize=7)
     return fig
 
@@ -72,10 +76,10 @@ def _main():
     try:
         graph = sys.argv[2]
     except IndexError:
+        print("0 Exit")
         while True:
-            for i, name in enumerate(graphs.items()):
-                print("Exit 0")
-                print(i+1, name)
+            for i, key in enumerate(graphs.items()):
+                print(i+1, key)
             choice = get_int_input("Enter a number: ")
             if choice == 0:
                 break

@@ -11,6 +11,10 @@ sites = {
     "lick": {"lat": 37.3411, "lon": -121.6430, "height": 1283, "tz": "America/Los_Angeles"},
     "made up": {"lat": 0, "lon": 0, "height": 0, "tz": "UTC"}
 }
+twilight_types = {"astronomical": -18*u.deg,
+                  "nautical": -12*u.deg,
+                  "civil": -6*u.deg
+}
 #
 #
 def site_location(site):

@@ -2,18 +2,17 @@ import tkinter as tk              # window, labels, and the after() timer
 from astropy.time import Time     # Time.now() is passed to the twilight functions
 from pathlib import Path          # to find the icon file next to this script
 import sys                        # to tell Python where the project scripts are
-from astropy.coordinates import EarthLocation   # only for the filler location
 
 # twilight.py and utils.py live one folder up (twilight/), not in gui/.
 # Adding that folder to Python's search path lets us import them.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from twilight import next_twilight, sites
+from twilight import next_twilight, sites, twilight_types
 from utils import time_remaining
 
-# FILLER: Lick is hard-coded until the location selector exists.
-# from_geodetic reads plain numbers as degrees and metres.
-lick = sites["lick"]
-location = EarthLocation.from_geodetic(lick["lon"], lick["lat"], lick["height"])
+# The current choices, looked up in the dictionaries from twilight.py.
+# Fixed for now; the dropdowns will change these later.
+site = sites["lick"]
+angle = twilight_types["astronomical"]
 
 root = tk.Tk()                        # the main window
 
@@ -40,13 +39,13 @@ def tick(target):
     """Show the time left until `target`, then run again in 1 second."""
     h, m, s = time_remaining(target, Time.now())
     if (h, m, s) == (0, 0, 0):        # reached it: ask for the next twilight
-        target = next_twilight(Time.now(), location)
+        target = next_twilight(Time.now(), site, angle)
         h, m, s = time_remaining(target, Time.now())
     label.config(text=f"{h:02d}:{m:02d}:{s:02d}")   # 02d: two digits, zero-padded
     root.after(1000, tick, target)    # call tick(target) again in 1000 ms
 
 
-tick(next_twilight(Time.now(), location))   # first calculation, starts the loop
+tick(next_twilight(Time.now(), site, angle))   # first calculation, starts the loop
 root.mainloop()                       # keep the window open until closed
 
 
@@ -75,7 +74,5 @@ root.mainloop()                       # keep the window open until closed
 #     https://docs.python.org/3/library/string.html#formatspec
 #   Tcl after command (what root.after calls underneath):
 #     https://www.tcl.tk/man/tcl8.6/TclCmd/after.htm
-#   Astropy EarthLocation documentation (from_geodetic):
-#     https://docs.astropy.org/en/stable/api/astropy.coordinates.EarthLocation.html
 #   Astropy Time documentation:
 #     https://docs.astropy.org/en/stable/time/

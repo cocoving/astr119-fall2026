@@ -28,9 +28,10 @@ root.configure(bg="black")            # window background colour
 icon = tk.PhotoImage(file=Path(__file__).parent / "pixels_out.png")
 root.iconphoto(True, icon)            # True: also use it for any later windows
 
-# The big clock display. Courier is monospaced, so every digit is the
-# same width and the text doesn't jiggle as the numbers change.
-label = tk.Label(root, text="00:00:00", font=("Courier", 72),
+# The big clock display. DejaVu Sans Mono is monospaced, so every digit
+# is the same width and the text doesn't jiggle as the numbers change.
+# (It is installed in the twilight-cf env; Courier is not.)
+label = tk.Label(root, text="00:00:00", font=("DejaVu Sans Mono", 72),
                  fg="lime", bg="black")
 label.pack(padx=20, pady=20)          # place it, with a 20-pixel margin
 
@@ -62,6 +63,10 @@ root.mainloop()                       # keep the window open until closed
 #     https://www.tcl.tk/man/tcl8.6/
 #   Tk tk command (tk scaling, pixels per point):
 #     https://www.tcl.tk/man/tcl8.6/TkCmd/tk.htm
+#   Tk font command (font families and sizes):
+#     https://www.tcl.tk/man/tcl8.6/TkCmd/font.htm
+#   DejaVu fonts project:
+#     https://dejavu-fonts.github.io/
 #   Tk photo image command (tk.PhotoImage, PNG support):
 #     https://www.tcl.tk/man/tcl8.6/TkCmd/photo.htm
 #   Tk wm iconphoto command (root.iconphoto):

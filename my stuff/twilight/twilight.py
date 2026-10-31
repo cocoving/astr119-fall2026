@@ -23,7 +23,7 @@ def sun_alt(t, location):
 def bisection(a, b, location):
     sun_a = sun_alt(a, location)
     count = 0
-    tolerance = 1*u.s
+    tolerance = 1*u.min
     while abs(a - b) > tolerance:
         count += 1
         mid = a + (b-a)/2
@@ -63,8 +63,10 @@ def main():
     location = EarthLocation(lat=s["lat"]*u.deg, lon=s["lon"]*u.deg, height=s["height"]*u.m)
     now = Time.now()
     value = next_twilight(now, location)
-    print(value)
+    return value
 #
 #
 if __name__ == "__main__":
     main()
+#
+#

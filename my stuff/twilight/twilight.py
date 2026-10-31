@@ -11,7 +11,11 @@ sites = {
     "lick": {"lat": 37.3411, "lon": -121.6430, "height": 1283, "tz": "America/Los_Angeles"},
     "made up": {"lat": 0, "lon": 0, "height": 0, "tz": "UTC"}
 }
-s = sites["lick"]
+#
+#
+def site_location(site):
+    location = EarthLocation(lat=site["lat"]*u.deg, lon=site["lon"]*u.deg, height=site["height"]*u.m)
+    return location
 #
 #
 def sun_alt(t, location):
@@ -20,7 +24,7 @@ def sun_alt(t, location):
     return sun.alt
 #
 #
-def bisection(a, b, location):
+def bisection(a, b, location, angle):
     sun_a = sun_alt(a, location)
     count = 0
     tolerance = 1*u.min
@@ -31,17 +35,18 @@ def bisection(a, b, location):
             print("Max loops reached")
             break
         sun_mid = sun_alt(mid, location)
-        if (sun_a+18*u.deg)*(sun_mid+18*u.deg) < 0:
+        if (sun_a-angle)*(sun_mid-angle) < 0:
             b = mid
         else:
             a = mid
     return mid
 #
 #
-def next_twilight(now, location):
-    local_now = now.to_datetime(timezone=ZoneInfo(s["tz"]))
-    local_noon = datetime(local_now.year, local_now.month, local_now.day, 12, tzinfo=ZoneInfo(s["tz"]))
+def next_twilight(now, site, angle):
+    local_now = now.to_datetime(timezone=ZoneInfo(site["tz"]))
+    local_noon = datetime(local_now.year, local_now.month, local_now.day, 12, tzinfo=ZoneInfo(site["tz"]))
     local_mn = local_noon + timedelta(hours=12)
+    location = site_location(site)
     a = local_now
     if local_now < local_noon:
         b = local_noon
@@ -50,19 +55,17 @@ def next_twilight(now, location):
     c = b + timedelta(hours=12)
     times = Time([a, b, c])
     sun = sun_alt(times, location)
-    print(times.iso)
-    print(sun)
-    if (sun[0]+18*u.deg)*(sun[1]+18*u.deg) < 0:
-        result = bisection(times[0], times[1], location)
+    if (sun[0]-angle)*(sun[1]-angle) < 0:
+        result = bisection(times[0], times[1], location, angle)
     else:
-        result = bisection(times[1], times[2], location)
+        result = bisection(times[1], times[2], location, angle)
     return result
 #
 #
 def main():
-    location = EarthLocation(lat=s["lat"]*u.deg, lon=s["lon"]*u.deg, height=s["height"]*u.m)
     now = Time.now()
-    value = next_twilight(now, location)
+    value = next_twilight(now, sites["lick"], -18*u.deg)
+    print(value)
     return value
 #
 #

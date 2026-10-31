@@ -16,6 +16,11 @@ lick = sites["lick"]
 location = EarthLocation.from_geodetic(lick["lon"], lick["lat"], lick["height"])
 
 root = tk.Tk()                        # the main window
+
+# Size of everything in Tk. The value is pixels per point: 1.333 is a
+# plain 96-dpi screen, times 1.25 for the 125% Windows display scale.
+# Must come before the widgets are created. Raise it if still too small.
+root.tk.call("tk", "scaling", 1.333 * 1.25)
 root.title("Next twilight")           # text in the window's title bar
 root.configure(bg="black")            # window background colour
 
@@ -56,6 +61,8 @@ root.mainloop()                       # keep the window open until closed
 #     https://tkdocs.com/tutorial/
 #   Tcl/Tk 8.6 reference manual (what tkinter calls underneath):
 #     https://www.tcl.tk/man/tcl8.6/
+#   Tk tk command (tk scaling, pixels per point):
+#     https://www.tcl.tk/man/tcl8.6/TkCmd/tk.htm
 #   Tk photo image command (tk.PhotoImage, PNG support):
 #     https://www.tcl.tk/man/tcl8.6/TkCmd/photo.htm
 #   Tk wm iconphoto command (root.iconphoto):

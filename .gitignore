@@ -16,4 +16,5 @@ scratch/
 
 # Large files you should not commit
 *.fits
+*.fits.gz
 *.zip

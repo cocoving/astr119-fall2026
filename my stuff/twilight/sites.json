@@ -1,0 +1,4 @@
+{"lick": {"lat": 37.3411, "lon": -121.6430, "height": 1283, "tz": "America/Los_Angeles"},
+"keck": {"lat": 19.8263, "lon": -155.47441, "height": 4145, "tz": "Pacific/Honolulu"},
+"made up": {"lat": 0, "lon": 0, "height": 0, "tz": "UTC"}
+}

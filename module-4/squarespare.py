@@ -69,9 +69,19 @@ def visualize_danger(n, R_new=R_new, r0=r0, saveas=''):
 
     # Do the core plotting commands here
     ## use the functions defined above to calculate the line segments to plot
+    fractions = np.linspace(0, 1, n + 1)
+    radii = product_visible(fractions, R_new=R_new, r0=r0)
+    theta = np.linspace(0, 2 * np.pi, 400)
+    ax = fh.add_subplot(1, 1, 1)
+    for r in radii:
+        ax.plot(r * np.cos(theta), r * np.sin(theta), color='k')
 
     # Set axes properties here for a better view
     ## things like axis limits and tick marks
+    ax.set_aspect('equal')
+    ax.set_xlim(-1.05 * R_new, 1.05 * R_new)
+    ax.set_ylim(-1.05 * R_new, 1.05 * R_new)
+    ax.axis('off')
 
     # Stylize and annotate
     ## things like axes labels, font sizes, or any other finishing touches

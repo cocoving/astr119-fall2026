@@ -19,12 +19,15 @@ with open(path) as f:
 #
 #
 def main():
-    path = get_path()
-    t = Table.read(path, format="ascii.no_header", names=["name", "ra", "dec", "equinox", "comment"])
-    coords = SkyCoord(t["ra"], t["dec"], unit=(u.hourangle, u.deg))
-    lst = Time.now().sidereal_time("apparent", longitude=utils.site_location(sites["lick"]).lon)
-    ha = (lst - coords.ra).wrap_at(12*u.hourangle)
-    print(ha.hour)
+    path = utils.get_data()
+    if path == None:
+        print("error")
+    else:
+        t = Table.read(path, format="ascii.csv")
+        coords = SkyCoord(t["ra"], t["dec"], unit=(u.hourangle, u.deg))
+        lst = Time.now().sidereal_time("apparent", longitude=utils.site_location(sites["lick"]).lon)
+        ha = (lst - coords.ra).wrap_at(12*u.hourangle)
+        print(ha.hour)
 
 if __name__ == "__main__":
     main()
